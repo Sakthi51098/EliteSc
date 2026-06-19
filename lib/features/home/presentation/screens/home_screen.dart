@@ -5,6 +5,8 @@ import '../../../../app/di/service_locator.dart';
 import '../../../../app/routes/app_route_names.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_text_styles.dart';
+import '../../../../core/utils/app_toast.dart';
+import '../../../../core/utils/error_message_helper.dart';
 import '../../../auth/presentation/providers/auth_provider.dart' as app_auth;
 import 'games_screen.dart';
 import '../../../dashboard/presentation/screens/dashboard_screen.dart';
@@ -27,6 +29,27 @@ class HomeScreen extends ConsumerWidget {
     Navigator.of(
       context,
     ).pushNamedAndRemoveUntil(AppRouteNames.login, (route) => false);
+  }
+
+  bool needsLogin(dynamic error) {
+    final message = error.toString().toLowerCase();
+    return message.contains('user data not found') ||
+        message.contains('user not logged in');
+  }
+
+  Future<void> sendToLogin(BuildContext context, WidgetRef ref) async {
+    await getIt<app_auth.AuthProvider>().logout();
+    ref.invalidate(currentUserProfileProvider);
+
+    if (!context.mounted) {
+      return;
+    }
+
+    Navigator.of(
+      context,
+    ).pushNamedAndRemoveUntil(AppRouteNames.login, (route) => false);
+
+    AppToast.show('Please login again to save your profile details.');
   }
 
   Widget buildBody(
@@ -68,11 +91,25 @@ class HomeScreen extends ConsumerWidget {
                   );
                 },
                 error: (error, stackTrace) {
+                  if (needsLogin(error)) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      sendToLogin(context, ref);
+                    });
+
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          AppColors.white,
+                        ),
+                      ),
+                    );
+                  }
+
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.only(left: 24, right: 24),
                       child: Text(
-                        error.toString().replaceFirst('Exception: ', ''),
+                        ErrorMessageHelper.getMessage(error),
                         style: AppTextStyles.authSubtitle,
                         textAlign: TextAlign.center,
                       ),

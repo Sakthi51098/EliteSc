@@ -120,7 +120,7 @@ class DashboardScreenState extends State<DashboardScreen> {
       padding: const EdgeInsets.only(left: pagePadding, right: pagePadding),
       child: Row(
         children: [
-          Image.asset('assets/images/menu_icon.png', width: 35, height: 35),
+          Image.asset('assets/images/menu_icon.png', width: 30, height: 30),
           const SizedBox(width: 10),
           ClipOval(
             child: Image.asset(
@@ -152,8 +152,8 @@ class DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
           Container(
-            height: 40,
-            padding: const EdgeInsets.only(left: 12, right: 12),
+            height: 35,
+            padding: const EdgeInsets.only(left: 8, right: 8),
             decoration: BoxDecoration(
               image: const DecorationImage(
                 image: AssetImage('assets/images/yellow_bg.png'),
@@ -165,16 +165,16 @@ class DashboardScreenState extends State<DashboardScreen> {
               children: [
                 Image.asset(
                   'assets/images/wallet_icon.png',
-                  width: 25,
-                  height: 25,
+                  width: 22.5,
+                  height: 22.5,
                 ),
                 const SizedBox(width: 8),
                 Text('₹200', style: AppTextStyles.dashboardWalletText),
                 const SizedBox(width: 8),
                 Image.asset(
                   'assets/images/add_rounded_icon.png',
-                  width: 25,
-                  height: 25,
+                  width: 22.5,
+                  height: 22.5,
                 ),
               ],
             ),
@@ -213,8 +213,8 @@ class DashboardScreenState extends State<DashboardScreen> {
           ),
           const SizedBox(width: 18),
           Container(
-            width: 100,
-            height: 100,
+            width: 75,
+            height: 75,
             decoration: BoxDecoration(
               color: AppColors.authCard,
               shape: BoxShape.circle,
@@ -223,7 +223,7 @@ class DashboardScreenState extends State<DashboardScreen> {
             alignment: Alignment.center,
             child: Image.asset(
               'assets/images/app_icon.png',
-              scale: 5,
+              scale: 7.5,
               fit: BoxFit.contain,
             ),
           ),
@@ -415,7 +415,10 @@ class DashboardScreenState extends State<DashboardScreen> {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                buildFantasyBanner('assets/images/fantasy_sport_1.png'),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: buildFantasyBanner('assets/images/fantasy_sport_1.png'),
+                ),
                 const SizedBox(width: 12),
                 buildFantasyBanner('assets/images/fantasy_sport_2.png'),
                 const SizedBox(width: 12),
@@ -433,150 +436,161 @@ class DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget buildLiveFantasyMatchCard() {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.authCard,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppColors.authFieldBorder),
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  height: 58,
-                  alignment: Alignment.center,
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      right: BorderSide(color: AppColors.authFieldBorder),
-                      bottom: BorderSide(color: AppColors.authFieldBorder),
+    return Padding(
+      padding: const EdgeInsets.only(left: 20),
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.authCard,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: AppColors.authFieldBorder),
+        ),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    height: 58,
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        right: BorderSide(color: AppColors.authFieldBorder),
+                        bottom: BorderSide(color: AppColors.authFieldBorder),
+                      ),
                     ),
-                  ),
-                  child: Text('Ongoing', style: AppTextStyles.dashboardLiveTab),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  height: 58,
-                  alignment: Alignment.center,
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(color: AppColors.authFieldBorder),
-                    ),
-                  ),
-                  child: Text(
-                    'Upcoming',
-                    style: AppTextStyles.dashboardLiveTab,
-                    textAlign: TextAlign.center,
+                    child: Text('Ongoing', style: AppTextStyles.dashboardLiveTab),
                   ),
                 ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 14,
-              top: 16,
-              right: 14,
-              bottom: 14,
+                Expanded(
+                  child: Container(
+                    height: 58,
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: AppColors.authFieldBorder),
+                      ),
+                    ),
+                    child: Text(
+                      'Upcoming',
+                      style: AppTextStyles.dashboardLiveTab,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ],
             ),
-            child: Container(
-              width: double.infinity,
+            Padding(
               padding: const EdgeInsets.only(
                 left: 14,
-                top: 24,
+                top: 20,
                 right: 14,
                 bottom: 14,
               ),
-              decoration: BoxDecoration(
-                color: AppColors.darkCard,
-                borderRadius: BorderRadius.circular(24),
-                gradient: const RadialGradient(
-                  center: Alignment.center,
-                  radius: 1.1,
-                  colors: [AppColors.authButtonDisabled, AppColors.darkCard],
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.only(
+                  left: 14,
+                  top: 24,
+                  right: 14,
+                  bottom: 14,
                 ),
-              ),
-              child: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  Positioned(
-                    top: -42,
-                    left: 0,
-                    right: 0,
-                    child: Center(
-                      child: Container(
-                        padding: const EdgeInsets.only(
-                          left: 16,
-                          top: 8,
-                          right: 16,
-                          bottom: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.darkChip,
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        child: Text(
-                          'Monday,15 Dec',
-                          style: AppTextStyles.dashboardLiveDate,
+                decoration: BoxDecoration(
+                  color: AppColors.darkCard,
+                  borderRadius: BorderRadius.circular(24),
+                  gradient: const RadialGradient(
+                    center: Alignment.center,
+                    radius: 1.1,
+                    colors: [AppColors.authButtonDisabled, AppColors.darkCard],
+                  ),
+                ),
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Positioned(
+                      top: -35,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: Container(
+                          padding: const EdgeInsets.only(
+                            left: 16,
+                            top: 8,
+                            right: 16,
+                            bottom: 8,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.darkChip,
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          child: Text(
+                            'Monday,15 Dec',
+                            style: AppTextStyles.dashboardLiveDate,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: buildTeamColumn(
-                              imagePath: 'assets/images/mi_icon.png',
-                              teamName: 'MI',
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: buildTeamColumn(
+                                imagePath: 'assets/images/mi_icon.png',
+                                teamName: 'MI',
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Match Starting In :',
-                                  style: AppTextStyles.dashboardLiveMeta,
-                                  textAlign: TextAlign.center,
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  '08h : 38m',
-                                  style: AppTextStyles.dashboardLiveMetaBold,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'Match Starting In :',
+                                    style: AppTextStyles.dashboardLiveMeta,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    '08h : 38m',
+                                    style: AppTextStyles.dashboardLiveMetaBold,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            child: buildTeamColumn(
-                              imagePath: 'assets/images/csk_icon.png',
-                              teamName: 'CSK',
+                            Expanded(
+                              child: buildTeamColumn(
+                                imagePath: 'assets/images/csk_icon.png',
+                                teamName: 'CSK',
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 14),
-                      Center(
-                        child: ClipPath(
-                          clipper: BottomArrowClipper(),
-                          child: Container(
-                            width: 84,
-                            height: 14,
-                            color: AppColors.darkArrow,
+                          ],
+                        ),
+                        const SizedBox(height: 14),
+                      ],
+                    ),
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: -15,
+                      child: Center(
+                        child: RotatedBox(
+                          quarterTurns: 2,
+                          child: ClipPath(
+                            clipper: BottomArrowClipper(),
+                            child: Container(
+                              width: 84,
+                              height: 14,
+                              color: AppColors.darkArrow,
+                            ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

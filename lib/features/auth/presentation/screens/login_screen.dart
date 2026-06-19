@@ -330,9 +330,9 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                   width: double.infinity,
                   height: MediaQuery.of(context).size.height * 0.675,
                   padding: const EdgeInsets.only(
-                    left: 16,
-                    top: 34,
-                    right: 16,
+                    left: 20,
+                    top: 40,
+                    right: 20,
                     bottom: 22,
                   ),
                   decoration: BoxDecoration(
@@ -353,7 +353,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                       buildPhoneField(),
                       const SizedBox(height: 18),
                       buildOtpField(state),
-                      const SizedBox(height: 132),
+                      const SizedBox(height: 75),
                       AppButton(
                         text: 'Login',
                         height: 60,

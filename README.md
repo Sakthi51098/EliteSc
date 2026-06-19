@@ -58,6 +58,13 @@ The project is split feature-wise:
 3. Run `flutter pub run build_runner build`
 4. Start the app with `flutter run`
 
+## Test Login
+
+Use the below test credentials for demo login:
+
+- Phone: `+91 98765 43210`
+- OTP: `000000`
+
 ## Notes
 
 - OTP login needs correct Firebase phone auth setup and SHA keys in Firebase Console.

@@ -145,7 +145,7 @@ class AppTextStyles {
 
   static const TextStyle authDisclaimer = TextStyle(
     fontFamily: fontFamily,
-    fontSize: 12,
+    fontSize: 14,
     height: 1,
     fontWeight: FontWeight.w400,
     color: AppColors.textMuted,
@@ -154,7 +154,7 @@ class AppTextStyles {
 
   static const TextStyle authDisclaimerLink = TextStyle(
     fontFamily: fontFamily,
-    fontSize: 12,
+    fontSize: 14,
     height: 1,
     fontWeight: FontWeight.w400,
     color: AppColors.termsHighlight,
@@ -198,7 +198,7 @@ class AppTextStyles {
 
   static const TextStyle dashboardWalletText = TextStyle(
     fontFamily: interFontFamily,
-    fontSize: 18,
+    fontSize: 16,
     height: 20 / 14,
     fontWeight: FontWeight.w600,
     color: AppColors.white,
