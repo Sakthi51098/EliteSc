@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "585026031226",
+    "project_id": "elite-fc1eb",
+    "storage_bucket": "elite-fc1eb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:585026031226:android:fb8ac8f1f42194e26eb5c3",
+        "android_client_info": {
+          "package_name": "com.elite.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0FeV4pyXqXP3cd5SB3_nvcDiUzIBoeto"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
