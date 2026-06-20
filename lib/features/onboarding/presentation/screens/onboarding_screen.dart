@@ -107,31 +107,28 @@ class OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final isSmallScreen = size.height < 760;
 
     if (page.imageType == OnboardingImageType.collage) {
-      final imageHeight = isSmallScreen ? 480.0 : 550.0;
-      final topImageHeight = isSmallScreen ? 166.0 : 188.0;
-      final middleImageHeight = isSmallScreen ? 178.0 : 200.0;
-      final bottomImageHeight = isSmallScreen ? 166.0 : 188.0;
+      final imageHeight = isSmallScreen ? MediaQuery.sizeOf(context).height * 0.175 : MediaQuery.sizeOf(context).height * 0.2;
 
       return SizedBox(
         height: imageHeight,
         child: Column(
           children: [
             AppImageView(
-              height: topImageHeight,
+              height: imageHeight,
               width: double.infinity,
               imagePath: 'assets/images/onboarding_1.png',
               fit: BoxFit.fill,
             ),
             const SizedBox(height: 12),
             AppImageView(
-              height: middleImageHeight,
+              height: imageHeight,
               width: double.infinity,
               imagePath: 'assets/images/onboarding_2.png',
               fit: BoxFit.fill,
             ),
             const SizedBox(height: 12),
             AppImageView(
-              height: bottomImageHeight,
+              height: imageHeight,
               width: double.infinity,
               imagePath: 'assets/images/onboarding_3.png',
               fit: BoxFit.fill,
@@ -141,7 +138,7 @@ class OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       );
     }
 
-    final imageHeight = isSmallScreen ? 640.0 : 720.0;
+    final imageHeight = isSmallScreen ? 630.0 : 720.0;
 
     return SizedBox(
       height: imageHeight,

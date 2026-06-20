@@ -7,6 +7,10 @@ import '../../../auth/presentation/providers/auth_provider.dart' as app_auth;
 
 final homeTabProvider = StateProvider<int>((ref) => 0);
 
+final homeLoginRedirectProvider = StateProvider.autoDispose<bool>(
+  (ref) => false,
+);
+
 final currentUserProfileProvider = FutureProvider<UserEntity>((ref) async {
   final currentUser = FirebaseAuth.instance.currentUser;
 

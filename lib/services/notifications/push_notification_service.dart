@@ -1,5 +1,4 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../firebase/firebase_initializer.dart';
@@ -15,7 +14,6 @@ const AndroidNotificationChannel _androidNotificationChannel =
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await FirebaseInitializer.initialize();
-  debugPrint('Handling background message: ${message.messageId}');
 }
 
 class PushNotificationService {
@@ -39,7 +37,6 @@ class PushNotificationService {
     await _initializeLocalNotifications();
     await _configureForegroundPresentation();
     await _configureMessageStreams();
-    await _logToken();
 
     _isInitialized = true;
   }
@@ -69,7 +66,7 @@ class PushNotificationService {
       return;
     }
 
-    final settings = await _messaging.requestPermission(
+    await _messaging.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
@@ -78,8 +75,6 @@ class PushNotificationService {
       provisional: false,
       sound: true,
     );
-
-    debugPrint('Push notification permission: ${settings.authorizationStatus}');
   }
 
   Future<void> _configureForegroundPresentation() {
@@ -98,9 +93,6 @@ class PushNotificationService {
 
     FirebaseMessaging.onMessage.listen(_showForegroundNotification);
     FirebaseMessaging.onMessageOpenedApp.listen(_handleNotificationTap);
-    _messaging.onTokenRefresh.listen(
-      (token) => debugPrint('FCM token refreshed: $token'),
-    );
   }
 
   Future<void> _showForegroundNotification(RemoteMessage message) async {
@@ -128,13 +120,5 @@ class PushNotificationService {
     );
   }
 
-  void _handleNotificationTap(RemoteMessage message) {
-    debugPrint('Notification opened: ${message.messageId}');
-    debugPrint('Notification data: ${message.data}');
-  }
-
-  Future<void> _logToken() async {
-    final token = await _messaging.getToken();
-    debugPrint('FCM token: $token');
-  }
+  void _handleNotificationTap(RemoteMessage _) {}
 }

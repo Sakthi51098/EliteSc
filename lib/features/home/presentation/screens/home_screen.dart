@@ -19,8 +19,8 @@ class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   Future<void> logout(BuildContext context, WidgetRef ref) async {
-    await getIt<app_auth.AuthProvider>().logout();
     ref.invalidate(currentUserProfileProvider);
+    await getIt<app_auth.AuthProvider>().logout();
 
     if (!context.mounted) {
       return;
@@ -38,8 +38,12 @@ class HomeScreen extends ConsumerWidget {
   }
 
   Future<void> sendToLogin(BuildContext context, WidgetRef ref) async {
-    await getIt<app_auth.AuthProvider>().logout();
+    if (!context.mounted) {
+      return;
+    }
+
     ref.invalidate(currentUserProfileProvider);
+    await getIt<app_auth.AuthProvider>().logout();
 
     if (!context.mounted) {
       return;
@@ -92,9 +96,14 @@ class HomeScreen extends ConsumerWidget {
                 },
                 error: (error, stackTrace) {
                   if (needsLogin(error)) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      sendToLogin(context, ref);
-                    });
+                    final isRedirecting = ref.read(homeLoginRedirectProvider);
+
+                    if (!isRedirecting) {
+                      ref.read(homeLoginRedirectProvider.notifier).state = true;
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        sendToLogin(context, ref);
+                      });
+                    }
 
                     return const Center(
                       child: CircularProgressIndicator(

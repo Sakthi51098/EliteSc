@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../app/theme/app_colors.dart';
 import '../../../../app/theme/app_text_styles.dart';
-import '../../../../core/utils/error_message_helper.dart';
 import '../../../../core/widgets/app_button.dart';
-import '../../domain/entities/game_details_entity.dart';
-import '../providers/game_provider.dart';
-import '../widgets/rummy_live_sports_card.dart';
 
 class RummyScreen extends StatelessWidget {
   const RummyScreen({super.key});
@@ -14,120 +10,114 @@ class RummyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.sizeOf(context).height;
-    final gameProvider = GameProvider();
+    final isSmallScreen = screenHeight < 760;
 
     return Scaffold(
       backgroundColor: AppColors.darkBackground,
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/rummy_bg.png'),
-            fit: BoxFit.cover,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset('assets/images/rummy_bg.png', fit: BoxFit.cover),
           ),
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 16,
-              top: 8,
-              right: 16,
-              bottom: 20,
-            ),
+          SafeArea(
+            bottom: false,
             child: Column(
               children: [
-                Center(
-                  child: Image.asset(
-                    'assets/images/rummy_name.png',
-                    height: 28,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Container(height: 1, color: AppColors.authFieldBorder),
-                SizedBox(height: screenHeight * 0.03),
-                Image.asset(
-                  'assets/images/rummy_play.png',
-                  width: 210,
-                  fit: BoxFit.contain,
-                ),
-                const Spacer(),
-                Container(
-                  width: 190,
-                  padding: const EdgeInsets.only(
-                    left: 16,
-                    top: 12,
-                    right: 16,
-                    bottom: 12,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.rummyBonusBackground,
-                    borderRadius: BorderRadius.circular(18),
-                    border: Border.all(color: AppColors.goldLight, width: 2),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: AppColors.goldShadow,
-                        blurRadius: 16,
-                        offset: Offset(0, 8),
-                      ),
-                    ],
-                  ),
-                  child: Column(
+                SizedBox(
+                  height: 52,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'WELCOME BONUS',
-                        style: AppTextStyles.gameBonusLabel,
-                      ),
-                      const SizedBox(height: 4),
-                      Text('₹500', style: AppTextStyles.gameBonusAmount),
-                    ],
-                  ),
-                ),
-                SizedBox(height: screenHeight * 0.06),
-                Image.asset(
-                  'assets/images/rummy_feature.png',
-                  fit: BoxFit.contain,
-                ),
-                SizedBox(height: screenHeight * 0.03),
-                FutureBuilder<GameDetailsEntity>(
-                  future: gameProvider.getGameDetails(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Padding(
-                        padding: EdgeInsets.only(top: 12, bottom: 12),
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            AppColors.white,
+                      Positioned(
+                        left: 0,
+                        child: IconButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          icon: const Icon(
+                            Icons.arrow_back_ios_new_rounded,
+                            color: AppColors.white,
+                            size: 22,
                           ),
                         ),
-                      );
-                    }
-
-                    if (snapshot.hasError) {
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 12, bottom: 12),
-                        child: Text(
-                          ErrorMessageHelper.getMessage(snapshot.error),
-                          style: AppTextStyles.liveMatchSubtitle,
-                          textAlign: TextAlign.center,
-                        ),
-                      );
-                    }
-
-                    final gameDetails = snapshot.data;
-
-                    if (gameDetails == null) {
-                      return const SizedBox();
-                    }
-
-                    return RummyLiveSportsCard(gameDetails: gameDetails);
-                  },
+                      ),
+                      Image.asset(
+                        'assets/images/rummy_name.png',
+                        height: 22,
+                        fit: BoxFit.contain,
+                      ),
+                      SizedBox(width: 50)
+                    ],
+                  ),
                 ),
-                SizedBox(height: screenHeight * 0.03),
-                AppButton(text: 'Play Rummy Now', height: 60, onPressed: () {}),
+                Container(height: 1, color: AppColors.authFieldBorder),
               ],
             ),
           ),
-        ),
+          Positioned(
+            top: isSmallScreen ? 112 : 126,
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/images/rummy_play.png',
+              width: 220,
+              height: isSmallScreen ? 130 : 150,
+              fit: BoxFit.contain,
+            ),
+          ),
+          Positioned(
+            top: isSmallScreen ? screenHeight * 0.50 : screenHeight * 0.52,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Container(
+                width: 196,
+                padding: const EdgeInsets.only(
+                  left: 14,
+                  top: 10,
+                  right: 14,
+                  bottom: 10,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.rummyBonusBackground,
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: AppColors.goldLight, width: 2),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: AppColors.goldShadow,
+                      blurRadius: 14,
+                      offset: Offset(0, 6),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Text('WELCOME BONES', style: AppTextStyles.gameBonusLabel),
+                    const SizedBox(height: 2),
+                    Text('₹500', style: AppTextStyles.gameBonusAmount),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 16,
+            right: 16,
+            bottom: isSmallScreen ? 92 : 104,
+            child: Image.asset(
+              'assets/images/rummy_feature.png',
+              fit: BoxFit.contain,
+            ),
+          ),
+          Positioned(
+            left: 16,
+            right: 16,
+            bottom: MediaQuery.paddingOf(context).bottom + 14,
+            child: AppButton(
+              text: 'Play Rummy Now',
+              height: 60,
+              onPressed: () {},
+            ),
+          ),
+        ],
       ),
     );
   }
